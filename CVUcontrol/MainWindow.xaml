@@ -1,0 +1,238 @@
+﻿<Window x:Class="DC_Debug.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DC_Debug"
+        mc:Ignorable="d"
+        Title="MainWindow" MinHeight="653" MinWidth="800" MaxHeight="653" MaxWidth="800">    
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <GroupBox Header="Управление" Grid.Row="0" Margin="5,5,5,5" Padding="5" BorderBrush="Black" BorderThickness="2" Grid.ColumnSpan="2">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Orientation="Vertical">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Напряжение на входе, В" Margin="5,5,5,5" MinWidth="250"/>
+                            <TextBlock Name="tbUin" Text="000.0" Margin="5,5,5,5" HorizontalAlignment="Right"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Ток в первичной обмотке, А" Margin="5,5,5,5" MinWidth="250"/>
+                            <TextBlock Name="tbIin" Text="000.0" Margin="5,5,5,5"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                            <TextBlock Text="Мощность потребеления, Вт" Margin="5,5,5,5" MinWidth="250"/>
+                            <TextBlock Name="tbPin" Text="000.0" Margin="5,5,5,5"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Напряжение на выходе, В" Margin="5,5,5,5" MinWidth="250"/>
+                            <TextBlock Name="tbUout" Text="000.0" Margin="5,5,5,5" HorizontalAlignment="Right"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Ток на выходе, А" Margin="5,5,5,5" MinWidth="250"/>
+                            <TextBlock Name="tbIout" Text="000.0" Margin="5,5,5,5"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                            <TextBlock Text="Мощность нагрузки, Вт" Margin="5,5,5,5" MinWidth="250"/>
+                            <TextBlock Name="tbPout" Text="000.0" Margin="5,5,5,5"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Температура радиатора инвертора, С" Margin="5,5,5,5" MinWidth="250"/>
+                            <TextBlock Name="tbInvTemp" Text="000" Margin="5,5,5,5"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Температура радиатора выпрямителя, С" Margin="5,5,5,5" MinWidth="250"/>
+                            <TextBlock Name="tbRectTemp" Text="000" Margin="5,5,5,5"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="КПД, %" Margin="5,5,5,5" MinWidth="250"/>
+                            <TextBlock Name="tbEfficiency" Text="000.0" Margin="5,5,5,5"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel x:Name="spControlSource" Grid.Column="1" Orientation="Vertical" KeyDown="StackPanel_KeyDown">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Порядковый номер" Margin="5,5,5,5" MinWidth="250"/>
+                            <Ellipse x:Name="elNumber" Width="10" Height="10" Fill="Green"/>
+                            <TextBox Name="tbNumber" Text="1" MinWidth="27" Margin="5,5,5,5" HorizontalAlignment="Right"/>
+                            <CheckBox x:Name="cbNumber" Margin="5,5,5,5" Click="control_Checked" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Заданный ток на выходе, A" Margin="5,5,5,5" MinWidth="250"/>
+                            <Ellipse x:Name="elCCM" Width="10" Height="10" Fill="Green"/>
+                            <TextBox Name="tbTargetCurrent" Text="000.0" Margin="5,5,5,5"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Заданное напряжение на выходе, В" Margin="5,5,5,5" MinWidth="250"/>
+                            <Ellipse x:Name="elVCM" Width="10" Height="10" Fill="Green"/>
+                            <TextBox Name="tbTargetVoltage" Text="000.0" Margin="5,5,5,5" HorizontalAlignment="Right"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Margin="0,0,0,10">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Частота, кГц" Margin="5,5,5,5" MinWidth="250" />
+                                <Ellipse x:Name="elDebug" Width="10" Height="10" Fill="Yellow"/>
+                                <TextBlock x:Name="tbFreq" MinWidth="27" Text="80" Margin="5,5,5,5" HorizontalAlignment="Right"/>
+                                <CheckBox x:Name="cbDebug" Margin="5,5,5,5" Click="control_Checked"/>
+                                <!--{Binding ElementName=slFreq, Path=Value, UpdateSourceTrigger=PropertyChanged}-->
+                            </StackPanel>
+                            <Slider x:Name="slFreq" Maximum="500" Minimum="80" SmallChange="10" LargeChange="1" TickPlacement="BottomRight" TickFrequency="10" ValueChanged="slFreq_ValueChanged"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" >
+                            <TextBlock Text="Работа" Margin="5,5,5,5" MinWidth="250"/>
+                            <Ellipse x:Name="elOperate" Width="10" Height="10" Fill="Green"/>
+                            <CheckBox x:Name="cbOperate" Margin="5,5,5,5" Click="control_Checked"/>
+                        
+                    </StackPanel>
+                        <StackPanel Orientation="Horizontal" >
+                            <TextBlock Text="Стереть настройки" Margin="5,5,5,5" MinWidth="250"/>
+                            <Ellipse x:Name="elClear" Width="10" Height="10" Fill="Green"/>
+                            <CheckBox x:Name="cbClear" Margin="5,5,5,5"  Click="control_Checked"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Неисправность" Margin="5,5,5,5" MinWidth="250"/>
+                            <Ellipse x:Name="elError" Width="10" Height="10" Fill="Red"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Калибровка" Margin="5,5,5,5" MinWidth="250"/>
+                            <Ellipse x:Name="elCalib" Width="10" Height="10" Fill="Green"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Header="Неисправности" Grid.Row="1" Margin="5,5,5,5" Padding="5" BorderBrush="Black" BorderThickness="2" Grid.ColumnSpan="2">
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Vertical" Grid.Column="0">
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse x:Name="el_F_Calib" Width="10" Height="10" Fill="Red"/>
+                            <TextBlock Text="Отсутствует калибровка" Margin="5,5,5,5"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse x:Name="el_F_InvOverheat" Width="10" Height="10" Fill="Red"/>
+                            <TextBlock Text="Перегрев радиатора инвертора" Margin="5,5,5,5"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse x:Name="el_F_RectOverheat" Width="10" Height="10" Fill="Red"/>
+                            <TextBlock Text="Перегрев радиатора выпрямителя" Margin="5,5,5,5"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse x:Name="el_F_InvTS" Width="10" Height="10" Fill="Red"/>
+                            <TextBlock Text="ДТ радиатора инвертора" Margin="5,5,5,5"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse x:Name="el_F_RectTS" Width="10" Height="10" Fill="Red"/>
+                            <TextBlock Text="ДТ радиатора выпрямителя" Margin="5,5,5,5"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse x:Name="el_F_Timeout" Width="10" Height="10" Fill="Red"/>
+                            <TextBlock Text="Нет связи с СУ верхнего уровня" Margin="5,5,5,5"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse x:Name="el_F_HSDriverNotReady" Width="10" Height="10" Fill="Red"/>
+                            <TextBlock Text="Драйвер верхнего ключа не готов" Margin="5,5,5,5"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse x:Name="el_F_HSDriver" Width="10" Height="10" Fill="Red"/>
+                            <TextBlock Text="Авария драйвера верхнего ключа" Margin="5,5,5,5"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical" Grid.Column="1">
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse x:Name="el_F_OverVoltageIn" Width="10" Height="10" Fill="Red"/>
+                            <TextBlock Text="Напряжение на входе выше нормы" Margin="5,5,5,5"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse x:Name="el_F_UnderVoltageIn" Width="10" Height="10" Fill="Red"/>
+                            <TextBlock Text="Напряжение на входе ниже нормы" Margin="5,5,5,5"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse x:Name="el_F_OverCurrentIn" Width="10" Height="10" Fill="Red"/>
+                            <TextBlock Text="Ток на входе выше нормы" Margin="5,5,5,5"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse x:Name="el_F_OverVoltageOut" Width="10" Height="10" Fill="Red"/>
+                            <TextBlock Text="Напряжение на выходе выше нормы" Margin="5,5,5,5"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse x:Name="el_F_OverCurrentOut" Width="10" Height="10" Fill="Red"/>
+                            <TextBlock Text="Ток на выходе выше нормы" Margin="5,5,5,5"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse x:Name="el_F_CurrentCutoff" Width="10" Height="10" Fill="Red"/>
+                            <TextBlock Text="Сработала токовая отсечка" Margin="5,5,5,5"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse x:Name="el_F_LSDriverNotReady" Width="10" Height="10" Fill="Red"/>
+                            <TextBlock Text="Драйвер нижнего ключа не готов" Margin="5,5,5,5"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse x:Name="el_F_LSDriver" Width="10" Height="10" Fill="Red"/>
+                            <TextBlock Text="Авария драйвера нижнего ключа" Margin="5,5,5,5"/>
+                        </StackPanel>
+                    </StackPanel>
+
+
+                    <StackPanel Orientation="Vertical" Grid.Column="2">
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse x:Name="el_F_Calib_VIN_Point1" Width="10" Height="10" Fill="Red"/>
+                            <TextBlock Text="Точка 1 - Калибровка VIN - Точка 2" Margin="5,5,5,5" MinWidth="210"/>
+                            <Ellipse x:Name="el_F_Calib_VIN_Point2" Width="10" Height="10" Fill="Red"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse x:Name="el_F_Calib_CIN_Point1" Width="10" Height="10" Fill="Red"/>
+                            <TextBlock Text="Точка 1 - Калибровка CIN - Точка 2" Margin="5,5,5,5" MinWidth="210"/>
+                            <Ellipse x:Name="el_F_Calib_CIN_Point2" Width="10" Height="10" Fill="Red"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse x:Name="el_F_Calib_VOUT_Point1" Width="10" Height="10" Fill="Red"/>
+                            <TextBlock Text="Точка 1 - Калибровка VOUT - Точка 2" Margin="5,5,5,5" MinWidth="210"/>
+                            <Ellipse x:Name="el_F_Calib_VOUT_Point2" Width="10" Height="10" Fill="Red"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse x:Name="el_F_Calib_COUT_Point1" Width="10" Height="10" Fill="Red"/>
+                            <TextBlock Text="Точка 1 - Калибровка COUT - Точка 2" Margin="5,5,5,5" MinWidth="210"/>
+                            <Ellipse x:Name="el_F_Calib_COUT_Point2" Width="10" Height="10" Fill="Red"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse x:Name="el_F_Calib_TINV_Point1" Width="10" Height="10" Fill="Red"/>
+                            <TextBlock Text="Точка 1 - Калибровка TINV - Точка 2" Margin="5,5,5,5" MinWidth="210"/>
+                            <Ellipse x:Name="el_F_Calib_TINV_Point2" Width="10" Height="10" Fill="Red"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse x:Name="el_F_Calib_TRECT_Point1" Width="10" Height="10" Fill="Red"/>
+                            <TextBlock Text="Точка 1 - Калибровка TRECT - Точка 2" Margin="5,5,5,5" MinWidth="210"/>
+                            <Ellipse x:Name="el_F_Calib_TRECT_Point2" Width="10" Height="10" Fill="Red"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Header="Данные на линии CAN" Grid.Row="2" Margin="5,5,5,5" Padding="5" BorderBrush="Black" BorderThickness="2" Grid.ColumnSpan="2">
+                <ListView />
+            </GroupBox>
+            <StatusBar Grid.ColumnSpan="2" Grid.Row="3" Margin="0,0,0,0" Grid.RowSpan="2">
+                <Rectangle x:Name="rectAdapterStatus" Fill="Red" Height="10" Width="10"/>
+                <TextBlock x:Name="tbAdapterStatus" Text="Not Connected" MinWidth="100"/>
+            </StatusBar>
+        </Grid>
+</Window>
