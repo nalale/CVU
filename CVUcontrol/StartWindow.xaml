@@ -1,0 +1,86 @@
+﻿<Window x:Class="DC_Debug.StartWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DC_Debug"
+        mc:Ignorable="d"
+        Title="StartWindow" Height="450" Width="800">
+    <Window.Resources>
+        <ResourceDictionary>
+            <Style x:Key="tbEl" TargetType="{x:Type TextBlock}" >
+                <Setter Property="Width"  Value="100"/>
+                <Setter Property="Height" Value="25"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="FontFamily" Value="Times New Roman"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="Margin" Value="5, 2, 0, 0"/>
+                <Setter Property="Padding" Value="5, 2, 0, 0"/>
+            </Style>
+            <Style x:Key="cmbEl" TargetType="{x:Type ComboBox}">
+                <Setter Property="Width"  Value="100"/>
+                <Setter Property="Margin" Value="10, 0, 0, 2"/>
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <Menu Grid.ColumnSpan="4">
+            <MenuItem Header="File"/>
+            <MenuItem Header="CAN"/>
+            <MenuItem Header="Log"/>
+        </Menu>
+
+        <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1" >
+            <StackPanel  Name="Unit" Orientation="Vertical" >
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Module ID: " Style="{StaticResource ResourceKey=tbEl}"/>
+                    <TextBlock Name="tbModuleID" Style="{StaticResource ResourceKey=tbEl}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Out Voltage: " Style="{StaticResource ResourceKey=tbEl}"/>
+                    <TextBlock Name="tbOutVoltage" Style="{StaticResource ResourceKey=tbEl}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Out Current: " Style="{StaticResource ResourceKey=tbEl}"/>
+                    <TextBlock Name="tbOutCurrent" Style="{StaticResource ResourceKey=tbEl}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="In Voltage: " Style="{StaticResource ResourceKey=tbEl}"/>
+                    <TextBlock Name="tbInVoltage" Style="{StaticResource ResourceKey=tbEl}"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <!--<GroupBox Header="CAN Settings">
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Adapter:" Style="{StaticResource tbEl}" />
+                    <ComboBox x:Name="cmbAdapters" Style="{StaticResource cmbEl}"/>
+                 </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="BaudRate:" Style="{StaticResource tbEl}"/>
+                    <ComboBox x:Name="cmbBoudRate" Style="{StaticResource cmbEl}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Channel:" Style="{StaticResource tbEl}"/>
+                    <ComboBox x:Name="cmbChannel" Style="{StaticResource cmbEl}"/>
+                </StackPanel>
+            </StackPanel>
+        </GroupBox>-->
+    </Grid>
+
+</Window>
